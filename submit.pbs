@@ -1,0 +1,29 @@
+
+######## SELECT RESOURCES #######
+
+//menentukan hasil keluaran
+#PBS -N 8_CORE_NODE_TEST
+//menentukan jumlah node yang bekerja dan jumlah processor per node nya
+#PBS -l nodes=4:ppn=4,walltime=08:00:00
+#PBS -j oe
+
+
+#### OUTPUT FILE ####
+###PBS -o $PBS_O_WORKDIR/Job.o
+
+#### ERROR FILE ####
+###PBS -e $PBS_O_WORKDIR/Job.e
+
+#### OPEN DIRECTORY  ####
+
+cd $PBS_O_WORKDIR
+
+#### EXECUTE PROGRAM  ###
+
+//perintah untuk ngerun hasil compile dengan MPI
+/export/application/openmpi-2.1/bin/mpirun --mca btl_tcp_if_include enp3s0 -np $PBS_NP --hostfile $PBS_NODEFILE hello_mpi
+
+
+
+exit 0
+
